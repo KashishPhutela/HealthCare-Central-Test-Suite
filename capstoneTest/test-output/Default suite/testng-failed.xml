@@ -5,8 +5,9 @@
     <classes>
       <class name="capstoneSIT.mainTest.App">
         <methods>
+          <include name="tearDown"/>
+          <include name="loginFailed"/>
           <include name="launchApplication"/>
-          <include name="login"/>
         </methods>
       </class> <!-- capstoneSIT.mainTest.App -->
     </classes>

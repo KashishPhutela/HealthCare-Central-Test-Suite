@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.openqa.selenium.WebDriver;
@@ -29,7 +29,7 @@ public class search extends Waits {
 	@FindBy(xpath="//input[@placeholder='Customer Name']")
 	WebElement customerName;
 	
-	@FindBy(xpath = "//button[@class='btn customBtn mx-3']")
+	@FindBy(xpath = "//button[text()='Search']")
 	WebElement searchButton;
 	
 	@FindBy(xpath="//div[@class='modal-dialog']")
@@ -53,13 +53,10 @@ public class search extends Waits {
 	@FindBy(xpath="/html[1]/body[1]/div[1]/div[4]/div[3]/div[1]/div[1]/div[2]/div[1]/div[1]/form[1]/div[1]/div[1]/div[1]/*[name()='svg'][1]/*[name()='path'][1]")
 	WebElement searchProject;
 	
+	@FindBy(xpath="//input[@placeholder='Customer Code']")
+	WebElement custCodeSearchBox;
 	
-	public Properties loadProperties() throws IOException {
-	Properties prop = new Properties();
-	FileInputStream file = new FileInputStream(System.getProperty("user.dir") +"//constant.properties");
-	prop.load(file);
-	return prop;
-	}
+	
 	
 	
 	public HashMap<String, String> searchByCustomerName() throws IOException {
@@ -67,12 +64,13 @@ public class search extends Waits {
 		String formattedProjectNumber = null;
 		HashMap<String, String> searchResults = new HashMap<>();
 		
-		Properties prop = loadProperties();
-		String custName = prop.getProperty("customerName");
+		dbComponent db = new dbComponent();
+		Properties prop = db.loadProperties();
+		String custName = prop.getProperty("searchByCustomerName");
 		customerName.sendKeys(custName);
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		searchButton.click();
-		waitForVisibility(modalDialog);
+		//waitForVisibility(modalDialog);
 		for(int j=0;j<projectNames.size();j++) {
 			String [] pNames = projectNames.get(j).getText().split(":");
 			String [] pNums = projectNumbers.get(j).getText().split(":");
@@ -82,15 +80,40 @@ public class search extends Waits {
 			}
 		return searchResults;
 	}
+	
+	public HashMap<String, String> searchByCustomerCode() throws IOException{
+		String formattedProjectName= null;
+		String formattedProjectNumber = null;
+		HashMap<String, String> searchResults = new HashMap<>();
+		dbComponent db = new dbComponent();
+		Properties prop = db.loadProperties();
+		String custCode = prop.getProperty("searchByCustomerCode");
+		custCodeSearchBox.sendKeys(custCode);
+		searchButton.click();
+		//waitForVisibility(modalDialog);
+		for(int j=0;j<projectNames.size();j++) {
+			String [] pNames = projectNames.get(j).getText().split(":");
+			String [] pNums = projectNumbers.get(j).getText().split(":");
+			formattedProjectName = pNames[1].trim();
+			formattedProjectNumber = pNums[1].trim();
+			searchResults.put(formattedProjectName, formattedProjectNumber);
+			}
+		return searchResults;
+		
+	}
 
-	public HashMap<String, String> searchByProjectName() {
+	public HashMap<String, String> searchByProjectName() throws IOException {
 		String formattedProjectNumber = null;
 		String formattedProjectName= null;
 		closeBtn.click();
-		projectName.sendKeys("Global Work");
+		
+		dbComponent db = new dbComponent();
+		Properties prop = db.loadProperties();
+		String projName = prop.getProperty("SearchByProjectName");
+		projectName.sendKeys(projName);
 		searchProject.click();
 		HashMap<String, String> assignedProjects = new HashMap<>();
-		waitForVisibility(modalDialog);
+		//waitForVisibility(modalDialog);
 		for(int j=0;j<projectNames.size();j++) {
 			String [] pNames = projectNames.get(j).getText().split(":");
 			String [] pNums = projectNumbers.get(j).getText().split(":");

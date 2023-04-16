@@ -28,7 +28,8 @@ public class login  {
 	WebElement loginButton;
 	
 	public void goTo() {
-		driver.get("https://alphacoderz.cyclic.app/");
+		//driver.get("https://alpha-coderz.onrender.com/");
+		driver.get("https://alphacoderzcapstone.onrender.com/");
 	}
 	
 	public WebDriver loginApplication(String userId, String password) {

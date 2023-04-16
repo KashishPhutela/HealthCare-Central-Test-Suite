@@ -21,12 +21,14 @@ import capstoneSIT.pageObjects.login;
 public class baseTest {
 
 	public WebDriver driver;
+	ChromeOptions options;
 	
 	public login l;
 	
 	public WebDriver initializeDriver() throws IOException {
-		ChromeOptions options = new ChromeOptions();
+		options = new ChromeOptions();
 		options.addArguments("--remote-allow-origins=*");
+	//	options.addArguments("disable-blink-features=AutomationControlled");
 		driver = new ChromeDriver(options);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		driver.manage().window().maximize();
@@ -51,11 +53,11 @@ public class baseTest {
 		l.goTo();
 		return l;
 	}
-//	
-//	@AfterMethod
-//	public void tearDown() {
-//		driver.quit();
-//	}
+	
+	@AfterMethod
+	public void tearDown() {
+		driver.quit();
+	}
 	
 	
 }
