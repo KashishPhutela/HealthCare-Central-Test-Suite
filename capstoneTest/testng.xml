@@ -12,6 +12,7 @@
   <test thread-count="5" name="login validation">
     <classes>
     	<class name="capstoneSIT.mainTest.App"/>
+    	<class name="capstoneSIT.mainTest.ReviewerMain"/>
     </classes>
   </test>
 </suite>

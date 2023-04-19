@@ -6,12 +6,12 @@
   </listeners>
   <test thread-count="5" parallel="tests" name="login validation(failed)">
     <classes>
-      <class name="capstoneSIT.mainTest.App">
+      <class name="capstoneSIT.mainTest.ReviewerMain">
         <methods>
-          <include name="loginFailed"/>
           <include name="launchApplication"/>
+          <include name="testReviewer"/>
         </methods>
-      </class> <!-- capstoneSIT.mainTest.App -->
+      </class> <!-- capstoneSIT.mainTest.ReviewerMain -->
     </classes>
   </test> <!-- login validation(failed) -->
 </suite> <!-- Failed suite [Suite] -->

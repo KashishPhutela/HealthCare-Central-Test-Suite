@@ -168,8 +168,6 @@ public class dbComponent {
 			projectDetails.add(rs1.getString("project_name"));
 			projectDetails.add(rs1.getString("receiving_customer"));
 		}
-		
-		System.out.println("ArrayLisy has : " +projectDetails.toString());
 		return projectDetails;
 	}
 	
@@ -190,8 +188,6 @@ public class dbComponent {
 			sDDetails.add(rs1.getString("project_name"));
 			sDDetails.add(rs1.getString("receiving_customer"));
 		}
-		
-		System.out.println("ArrayLisy has : " +sDDetails.toString());
 		return sDDetails;
 	}
 	public Properties loadProperties() throws IOException {

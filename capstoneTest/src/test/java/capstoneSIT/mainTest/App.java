@@ -115,7 +115,10 @@ public class App extends baseTest{
 		System.out.println("Correct Supporting Documents Details");
 	}
 	else {
+		System.out.println("Report Number is : "+reportId +"project Number is : "+projectNum);
+		System.out.println("Supporting docs details on screen : "+SupportingDocDetails.toString());
 		Assert.assertTrue("Incorrect Supporting Documents Details.", false);
+		
 	}
 	
 	}
